@@ -2,12 +2,13 @@ import numpy as np
 import tensorflow as tf
 from keras.models import Sequential
 from keras.layers import Embedding, Dropout, Conv1D, GlobalMaxPooling1D, Dense
-from keras.optimizer_v2 import adam
-from keras.preprocessing.sequence import pad_sequences
+from keras.optimizers.optimizer_v2 import adam
+from keras_preprocessing.sequence import pad_sequences
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
 
+# Set hyper parameters
 max_len = 320
 embedding_dim = 320
 dropout_ratio = 0.3
@@ -28,7 +29,9 @@ wave_data = []
 wave_label = []
 
 fname = " "
-for fname in ["WIFI_10MHz_IQvector_(minus)3dB_60000.txt"]:
+for fname in ["D:/SNN_dataset/Wi-Fi_Preambles/"
+              "WIFI_10MHz_IQvector_(minus)3dB_20000.txt"]:
+
     print(fname)
     f = open(fname, "r", encoding='utf-8-sig')
     linedata = []
@@ -57,6 +60,7 @@ for fname in ["WIFI_10MHz_IQvector_(minus)3dB_60000.txt"]:
 
 train_data, test_valid_data, train_label, test_valid_label = train_test_split(
     wave_data, wave_label, test_size=test_valid_ratio)
+
 valid_data, test_data, valid_label, test_label = train_test_split(
     test_valid_data, test_valid_label, test_size=test_ratio)
 
